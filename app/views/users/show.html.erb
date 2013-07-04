@@ -1,0 +1,6 @@
+<h1>User <%= @user.email %></h1>
+<% if @tweets.any? %>
+<%= render @tweets %>
+<% else %>
+Użytkownik nie ma żadnych wpisów
+<% end %>

@@ -1,0 +1,19 @@
+﻿<% if object.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-error">
+      Formularz zawiera
+	  <% if object.errors.count == 1 %>
+	  1 błąd.
+	  <% elsif object.errors.count <= 4 %>
+	  <%= object.errors.count %> błędy.
+	  <% else %>
+	  <%= object.errors.count %> błędów.
+	  <% end %>
+    </div>
+    <ul>
+    <% object.errors.full_messages.each do |msg| %>
+      <li>* <%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
