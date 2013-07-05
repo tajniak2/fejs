@@ -11,6 +11,7 @@
   end
   
   def new
+    @user = User.find(params[:user_id])
     @tweet = @user.tweets.new
   end
   
