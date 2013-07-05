@@ -1,8 +1,9 @@
 Facebook::Application.routes.draw do
 
   
-  resources :users
-  resources :tweets
+  resources :users do
+    resources :tweets
+  end
   resources :sessions
   
   

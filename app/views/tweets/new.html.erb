@@ -1,6 +1,6 @@
 <h1>Dodaj wpis</h1>
 
-<%= form_for(@tweet) do |f| %>
+<%= form_for([@user, @tweet]) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
   <%= f.label :status, "Status" %>

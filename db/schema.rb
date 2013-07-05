@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(:version => 20130705102939) do
     t.string   "status"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "verison"
+    t.integer  "version"
     t.boolean  "current"
   end
 
@@ -27,8 +27,6 @@ ActiveRecord::Schema.define(:version => 20130705102939) do
     t.string   "password_digest"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
-    t.integer  "version"
-    t.boolean  "current"
   end
 
 end

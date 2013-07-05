@@ -12,7 +12,7 @@
 #
 
 class Tweet < ActiveRecord::Base
-  attr_accessible :status, :veriosn, :current
+  attr_accessible :status, :version, :current
   has_many :tweets
   
   scope :current, where(current: true)
@@ -21,6 +21,6 @@ class Tweet < ActiveRecord::Base
   belongs_to :tweet, dependent: :destroy
   
   validates :status, presence: true
-  validates :veriosn, presence: true
+  validates :version, presence: true
   validates :current, presence: true
 end

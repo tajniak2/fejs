@@ -12,7 +12,7 @@
 <% if current_user %>
   Zalogowany jako <%= current_user.email %>.
   <%= link_to "Wyloguj", logout_path %> |
-  <%= link_to "Dodaj wpis", new_tweet_path %>
+  <%= link_to "Dodaj wpis", new_user_tweet_path(current_user) %>
 <% else %>
   <%= link_to "Zarejestruj", signup_path %> |
   <%= link_to "Zaloguj", login_path %>

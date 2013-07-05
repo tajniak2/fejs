@@ -1,5 +1,5 @@
 ﻿class TweetsController < ApplicationController
-  before_filter correct_user, only: [:destroy, :edit, :upadte] # Czemu nie działo before_save?
+  before_filter :correct_user, only: [:destroy, :edit, :update]
 
   def index
     @tweets = Tweet.all
@@ -11,11 +11,11 @@
   end
   
   def new
-    @tweet = current_user.tweets.build
+    @tweet = @user.tweets.new
   end
   
   def create
-   @tweet = current_user.tweets.build(params[:tweet])
+   @tweet = @user.tweets.new(params[:tweet])
     if @tweet.save
       flash[:succes] = "Wpis został zapisany"
       redirect_to current_user
@@ -46,6 +46,6 @@
   private
   
     def correct_user
-	  redirect_to root_path, alert: "Nie możesz usuwać lub edytować cudzych wpisów" if current_user != @tweet.user.id
+      redirect_to root_path, alert: "Nie możesz usuwać lub edytować cudzych wpisów" if current_user != @tweet.user.id
     end
 end
