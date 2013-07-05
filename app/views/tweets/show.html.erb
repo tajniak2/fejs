@@ -1,0 +1,7 @@
+<h1>Wpis użytkownika <%= @tweet.user.email %></h2>
+<p><%= @tweet.satus %></p>
+<p>Utworzony: <%= @tweet.created_at %></p>
+<h2>Poprzednie wersje</h2>
+<% @tweets.each do |tweet|>
+   <%= tweet.version %>: <%= tweet.status %>
+<% end %>

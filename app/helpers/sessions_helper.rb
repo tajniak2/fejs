@@ -10,4 +10,5 @@
   def authorize
     redirect_to login_url, alert: "Nieutoryzowany dostęp" if current_user.nil?
   end
+  
 end

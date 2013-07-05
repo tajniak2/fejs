@@ -7,6 +7,8 @@
 #  status     :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  verison    :integer
+#  current    :boolean
 #
 
 require 'test_helper'

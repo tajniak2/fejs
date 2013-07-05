@@ -1,12 +1,9 @@
-<h1>Dodaj wpis</h1>
-
 <%= form_for(@tweet) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
   <%= f.label :status, "Status" %>
   <%= f.text_field :status %>
-  <%= f.hidden_field :version, value: 1 %>
-  <%= f.hidden_field :current, value: true %>
+  <%= f.hidden_field :version, value: (@tweet.value + 1) %>
   <br />
   <%= f.submit "Dodaj" %>
 <% end %>

@@ -7,7 +7,7 @@
   
   def show
     @user = User.find(params[:id])
-	@tweets = @user.tweets
+	@tweets = @user.tweets.current
   end
 
   def new
