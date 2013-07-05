@@ -13,8 +13,8 @@
 
 one:
   email: MyString
-  password_digset: MyString
+  password_digest: MyString
 
 two:
   email: MyString
-  password_digset: MyString
+  password_digest: MyString
