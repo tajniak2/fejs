@@ -33,7 +33,7 @@ class UsersTest < ActionDispatch::IntegrationTest
 	
     visit root_path
 	click_on 'Dodaj wpis'
-	fill_in '﻿Status', with: 'Taki sobie tweet' 
+	fill_in 'Status', with: 'Taki sobie tweet' 
 	click_on 'Dodaj'
 	assert has_content?('ktos@cos.pl: Taki sobie tweet')
   end
@@ -41,6 +41,12 @@ class UsersTest < ActionDispatch::IntegrationTest
   test "show user" do
 	user = FactoryGirl.create(:user1) # Nie działa Factory. Why?
 	user.save
+	visit root_path
+	click_on 'Zaloguj'
+	fill_in 'Adres e-mail', with: 'ktos@cos.pl' 
+	fill_in 'Hasło', with: '1'
+	click_button 'Zaloguj'
+	
     visit root_path
 	click_on 'ktos@cos.pl'
 	assert_equal @user, current_path, "diffrent paths"
