@@ -13,12 +13,10 @@
 
 class Tweet < ActiveRecord::Base
   attr_accessible :status, :version, :current
-  has_many :tweets
   
   scope :current, where(current: true)
   
   belongs_to :user
-  belongs_to :tweet, dependent: :destroy
   
   validates :status, presence: true
   validates :version, presence: true

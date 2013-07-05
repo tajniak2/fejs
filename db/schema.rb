@@ -11,10 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130705125035) do
+ActiveRecord::Schema.define(:version => 20130705131237) do
 
-# Could not dump table "tweets" because of following StandardError
-#   Unknown type 'belongs_to' for column 'tweet'
+  create_table "tweets", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "status"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "version"
+    t.boolean  "current"
+    t.integer  "tweet_id"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email"
