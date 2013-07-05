@@ -1,1 +1,1 @@
-<p><%= tweet.user.email %>: <%= tweet.status %></p>
+<p><%= tweet.user.email %>: <%= link_to tweet.status, user_tweet_path(tweet.user) %></p>
