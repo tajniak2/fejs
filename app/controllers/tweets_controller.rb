@@ -16,7 +16,8 @@
   end
   
   def create
-   @tweet = @user.tweets.new(params[:tweet])
+    @user = User.find(params[:user_id])
+    @tweet = @user.tweets.new(params[:tweet])
     if @tweet.save
       flash[:succes] = "Wpis został zapisany"
       redirect_to current_user
