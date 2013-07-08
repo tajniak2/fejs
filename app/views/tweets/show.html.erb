@@ -1,7 +1,8 @@
 <h1>Wpis użytkownika <%= @tweet.user.email %></h2>
 <p><%= @tweet.status %></p>
 <p>Utworzony: <%= @tweet.created_at %></p>
-<p><%= link_to "Edytuj", edit_user_tweet_path(@user, @tweet) %></p>
+<p><%= link_to "Edytuj", edit_user_tweet_path(@user, @tweet) %> | 
+<%= link_to "Usuń", [@user, @tweet], method: :delete %></p>
 <h2>Poprzednie wersje</h2>
 <% @tweets.each do |tweet| %>
    <p><%= tweet.version %>: <%= tweet.status %></p>

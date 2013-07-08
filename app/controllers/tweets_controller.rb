@@ -30,8 +30,16 @@
   end
   
   def destroy
-    Tweet.find(params[:id]).current = false
-    redirect_to current_user
+    @user = User.find(params[:user_id])
+    @tweet = Tweet.find(params[:id])
+	@tweet.current = false
+	if @tweet.save
+	  flash[:succes] = "Ok"
+      redirect_to current_user
+	else
+	  flash[:error] = "Źle"
+      render 'show'
+	end
   end
   
   def edit
