@@ -8,7 +8,7 @@
   def show
     @user = User.find(params[:user_id])
     @tweet = Tweet.find(params[:id])
-	@tweets = Tweet.find_all_by_tweet_id(@tweet.tweet_id)
+    @tweets = Tweet.find_all_by_tweet_id(@tweet.tweet_id)
   end
   
   def new
@@ -21,7 +21,7 @@
     @tweet = @user.tweets.new(params[:tweet])
     if @tweet.save
       @tweet.tweet_id = @tweet.id
-	  @tweet.save
+      @tweet.save
       flash[:succes] = "Wpis został zapisany"
       redirect_to current_user
     else
@@ -30,16 +30,15 @@
   end
   
   def destroy
-    @user = User.find(params[:user_id])
     @tweet = Tweet.find(params[:id])
-	@tweet.current = false
-	if @tweet.save
-	  flash[:succes] = "Ok"
+    @tweet.current = false
+    if @tweet.save
+      flash[:succes] = "Ok"
       redirect_to current_user
-	else
-	  flash[:error] = "Źle"
+    else
+      flash[:error] = "Źle"
       render 'show'
-	end
+    end
   end
   
   def edit
