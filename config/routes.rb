@@ -11,6 +11,13 @@ Facebook::Application.routes.draw do
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
   
+  match 'feed', to: 'firendship#feed', as: 'feed'
+  match 'requests', to: 'firendship#index', as: 'requests'
+  match 'accept/:userB_id', to: 'firendship#accept', as: 'accept'
+  
+  match 'users/:id/add', to: 'firendship#add', as: 'add_user_to_friends'
+  match 'users/:id/del', to: 'firendship#del', as: 'delete_user_from_friends'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

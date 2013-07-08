@@ -26,6 +26,20 @@
     end
   end
   
+  def add_friend
+    @user = User.find(params[:id])
+    current_user.friends << @user
+    flash[:succes] = "Zaproszenie zostało wysłanie"
+    render 'show'
+  end
+  
+  def del_friend
+    @user = User.find(params[:id])
+    current_user.friends.destroy(@user)
+    flash[:succes] = "Przestaliście być przyjaciółmi"
+    render 'show'
+  end
+  
   #def destroy
   #def edit
   #def update

@@ -22,4 +22,9 @@ class Tweet < ActiveRecord::Base
   validates :version, presence: true
   # validates :current, presence: true
   # validates :tweet_id, presence: true
+  
+  def self.from_friens(user)
+    friends_ids = user.friends.map(&:id)
+    where("user_id IN (?) OR user_id = ?", friends_ids, user)
+  end
 end
