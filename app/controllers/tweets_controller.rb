@@ -21,6 +21,7 @@
     @tweet = @user.tweets.new(params[:tweet])
     if @tweet.save
       @tweet.tweet_id = @tweet.id
+	  @tweet.save
       flash[:succes] = "Wpis został zapisany"
       redirect_to current_user
     else
@@ -39,11 +40,14 @@
   end
   
   def update
+    @user = User.find(params[:user_id])
     @tweet = Tweet.find(params[:id])
-	if @tweet.status == params[:tweet][:status]
-	  @tweet.current = false
-	  @tweet_new = Tweet.create(params[:tweet])
+	@tweet_new = @user.tweets.new(params[:tweet])
+	@tweet.current = false
+	if @tweet.status != params[:tweet][:status] && @tweet.save && @tweet_new.save
+	  redirect_to @tweet_new
 	else
+	  flash.now[:error] = "Niedokonano żadnej zmiany " + params[:tweet].to_s + " " + @tweet.current.to_s + " " + @tweet_new.current.to_s
 	  render 'edit'
 	end
   end

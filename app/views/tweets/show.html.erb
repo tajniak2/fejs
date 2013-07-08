@@ -4,5 +4,5 @@
 <p><%= link_to "Edytuj", edit_user_tweet_path(@user, @tweet) %></p>
 <h2>Poprzednie wersje</h2>
 <% @tweets.each do |tweet| %>
-   <%= tweet.version %>: <%= tweet.status %>
+   <p><%= tweet.version %>: <%= tweet.status %></p>
 <% end %>

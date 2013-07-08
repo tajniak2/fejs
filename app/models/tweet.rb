@@ -20,5 +20,6 @@ class Tweet < ActiveRecord::Base
   
   validates :status, presence: true
   validates :version, presence: true
-  validates :current, presence: true
+  # validates :current, presence: true
+  validates :tweet_id, presence: true
 end
