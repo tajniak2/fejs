@@ -34,6 +34,7 @@
   end
   
   def edit
+    @user = User.find(params[:user_id])
     @tweet = Tweet.find(params[:id])
   end
   
