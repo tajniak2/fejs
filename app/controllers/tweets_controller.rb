@@ -45,7 +45,7 @@
 	@tweet_new = @user.tweets.new(params[:tweet])
 	@tweet.current = false
 	if @tweet.status != params[:tweet][:status] && @tweet.save && @tweet_new.save
-	  redirect_to @tweet_new
+	  redirect_to [@user, @tweet_new]
 	else
 	  flash.now[:error] = "Niedokonano żadnej zmiany " + params[:tweet].to_s + " " + @tweet.current.to_s + " " + @tweet_new.current.to_s
 	  render 'edit'
