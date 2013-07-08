@@ -12,7 +12,7 @@
 #
 
 class Tweet < ActiveRecord::Base
-  attr_accessible :status, :version, :current
+  attr_accessible :status, :version, :current, :tweet_id
   
   scope :current, where(current: true)
   

@@ -7,7 +7,7 @@
   
   def show
     @tweet = Tweet.find(params[:id])
-	@tweets = @tweet.tweets
+	@tweets = Tweet.find_all_by_tweet_id(@tweet.tweet_id)
   end
   
   def new
@@ -19,6 +19,7 @@
     @user = User.find(params[:user_id])
     @tweet = @user.tweets.new(params[:tweet])
     if @tweet.save
+      @tweet.tweet_id = @tweet.id
       flash[:succes] = "Wpis został zapisany"
       redirect_to current_user
     else
@@ -27,7 +28,7 @@
   end
   
   def destroy
-    Tweet.find(params[:id]).destroy
+    Tweet.find(params[:id]).current = false
     redirect_to current_user
   end
   
@@ -48,6 +49,6 @@
   private
   
     def correct_user
-      redirect_to root_path, alert: "Nie możesz usuwać lub edytować cudzych wpisów" if current_user != @tweet.user.id
+      redirect_to root_path, alert: "Nie możesz usuwać lub edytować cudzych wpisów" if current_user != params[:user_id]
     end
 end
