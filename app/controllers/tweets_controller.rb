@@ -6,6 +6,7 @@
   end
   
   def show
+    @user = User.find(params[:user_id])
     @tweet = Tweet.find(params[:id])
 	@tweets = Tweet.find_all_by_tweet_id(@tweet.tweet_id)
   end
@@ -49,6 +50,8 @@
   private
   
     def correct_user
-      redirect_to root_path, alert: "Nie możesz usuwać lub edytować cudzych wpisów" if current_user != params[:user_id]
+	  if current_user.id != params[:user_id].to_i
+        redirect_to root_path, alert: "Nie możesz usuwać lub edytować cudzych wpisów"
+	  end
     end
 end
