@@ -1,2 +1,4 @@
-<p><%= link_to user.email, user %> |
-<%= link_to "Dodaj znajomego", friendships_path(friend_id: user), method: :post %></p>
+<p><%= link_to user.email, user %>
+<% unless Friendship.find_by_userA_id(current_user.id) || current_user == user  %>
+| <%= link_to "Dodaj znajomego", friendships_path(friend_id: user), method: :post %>
+<% end %></p>

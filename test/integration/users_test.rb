@@ -12,7 +12,7 @@ class UsersTest < ActionDispatch::IntegrationTest
   end
   
   test "log in" do
-    user = FactoryGirl.create(:user1) # Nie działa Factory. Why?
+    user = FactoryGirl.create(:user1)
     user.save
     visit root_path
     click_on 'Zaloguj'
@@ -23,7 +23,7 @@ class UsersTest < ActionDispatch::IntegrationTest
   end
   
   test "save tweet" do
-    user = FactoryGirl.create(:user1) # Nie działa Factory. Why?
+    user = FactoryGirl.create(:user1)
     user.save
     visit root_path
     click_on 'Zaloguj'
@@ -39,7 +39,7 @@ class UsersTest < ActionDispatch::IntegrationTest
   end
   
   test "show user" do
-    user = FactoryGirl.create(:user1) # Nie działa Factory. Why?
+    user = FactoryGirl.create(:user1) 
     user.save
     visit root_path
     click_on 'Zaloguj'

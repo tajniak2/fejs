@@ -3,7 +3,13 @@ class Friendship < ActiveRecord::Base
   
   belongs_to :userA, class_name: "User"
   # belongs_to :userB_id, class_name: "User"
+  
+  validate :friendship_validator
  
   validates :userA_id, presence: true
-  validates :userB_id, presence: true, exclusion: { in: [:userA_id] }
+  validates :userB_id, presence: true
+  
+  def friendship_validator
+     errors.add(:userB_id, "can't be friend with yourself") if userA_id == userB_id
+  end
 end
