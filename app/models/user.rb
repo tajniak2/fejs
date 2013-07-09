@@ -21,8 +21,6 @@ class User < ActiveRecord::Base
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: "userB_id"
   has_many :requests, through: :inverse_friendships, source: :userA
   
-  scope :friends_requests, includes(:requests).where(requests: {accepted: false})
-  
   validates :email, presence: true, uniqueness: true
   
 end

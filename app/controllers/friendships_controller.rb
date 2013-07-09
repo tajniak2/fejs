@@ -29,7 +29,7 @@
   
   def index
     @user = current_user
-    @users = current_user.friends_requests
+    @users = current_user.requests.includes(:requests).where(accepted: false)
   end
   
   #def accept
