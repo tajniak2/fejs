@@ -11,11 +11,7 @@
       flash[:success] = "Zalogowany"
       redirect_to root_url
     else
-	  if @user
-        flash.now[:error] = 'E-mail ok'
-	  else
-	    flash.now[:error] = 'E-mail nieok'
-	  end
+	  flash.now[:error] = 'Niepoprawne e-mail lub hasło'
       render 'new'
     end
   end

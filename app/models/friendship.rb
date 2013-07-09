@@ -5,5 +5,5 @@ class Friendship < ActiveRecord::Base
   # belongs_to :userB_id, class_name: "User"
  
   validates :userA_id, presence: true
-  validates :userB_id, presence: true
+  validates :userB_id, presence: true, exclusion: { in: [:userA_id] }
 end

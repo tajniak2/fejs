@@ -13,6 +13,7 @@
   Zalogowany jako <%= current_user.email %>.
   <%= link_to "Wyloguj", logout_path %> |
   <%= link_to "Akceptuj zaproszenia", requests_path %> | 
+  <%= link_to "Aktualności", feed_path %> | 
   <%= link_to "Dodaj wpis", new_user_tweet_path(current_user) %>
 <% else %>
   <%= link_to "Zarejestruj", signup_path %> |

@@ -1,0 +1,4 @@
+﻿<h1>Aktualności</h1>
+<% @tweets.each do |tweet| %>
+  <p><%= tweet.user.email %>: <%= tweet.status %></p>
+<% end %>

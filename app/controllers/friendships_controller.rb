@@ -23,13 +23,13 @@
     redirect_to current_user
   end
 
-  #def feed
-  #  @tweets = Tweets.from_friens(current_user)
-  #end
+  def feed
+    @tweets = Tweet.from_friends(current_user)
+  end
   
   def index
     @user = current_user
-    @users = Friendship.find_all_by_userB_id_and_accepted(current_user.id, false)
+    @users = User.not_accepted(current_user)
   end
   
   #def accept

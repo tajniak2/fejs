@@ -23,4 +23,8 @@ class User < ActiveRecord::Base
   
   validates :email, presence: true, uniqueness: true
   
+  def self.not_accepted(user)
+    find Friendship.find_all_by_userB_id_and_accepted(user.id, false).map(&:userA_id)
+  end
+  
 end

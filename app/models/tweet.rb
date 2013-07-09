@@ -14,6 +14,7 @@
 class Tweet < ActiveRecord::Base
   attr_accessible :status, :version, :current, :tweet_id
   
+  default_scope order('created_at desc')
   scope :current, where(current: true)
   
   belongs_to :user
@@ -23,8 +24,8 @@ class Tweet < ActiveRecord::Base
   # validates :current, presence: true
   # validates :tweet_id, presence: true
   
-  def self.from_friens(user)
-    friends_ids = user.friends.map(&:id)
-    where("user_id IN (?) OR user_id = ?", friends_ids, user)
+  def self.from_friends(user)
+    friends_ids = Friendship.find_all_by_userA_id_and_accepted(user.id, true).map(&:userB_id)
+    where("user_id IN (?) OR user_id = ?", friends_ids, user.id)
   end
 end
