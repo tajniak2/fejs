@@ -29,7 +29,7 @@
   
   def index
     @user = current_user
-    @users = current_user.requests.includes(:requests).where(accepted: false)
+    @users = Friendship.find_all_by_userB_id_and_accepted(current_user.id, false)
   end
   
   #def accept
