@@ -5,6 +5,7 @@ Facebook::Application.routes.draw do
     resources :tweets
   end
   resources :sessions
+  resources :friendships
   
   
   get 'signup', to: 'users#new', as: 'signup'
