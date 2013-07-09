@@ -29,7 +29,7 @@
   
   def index
     @user = current_user
-    @users = current_user.requests
+    @users = current_user.friends_requests
   end
   
   #def accept
