@@ -1,0 +1,5 @@
+<h1>Zaproszenia</h1>
+
+<% @users.each do |user| %>
+   <p><%= user.email %> <%= link_to "Akceptuj", friendships_path(friend_id: user), method: :post %></p>
+<% end %>
