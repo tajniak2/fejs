@@ -1,5 +1,5 @@
 <h1>User <%= @user.email %></h1>
-<% if @user.friends.current_user.exists? %>
+<% if @user.friends_list(current_user).exists? %>
   <%= link_to "Usuń ze znajomych", delete_user_from_friends %>
 <% else %>
   <%= link_to "Dodaj do znajomych", add_user_to_friends %>

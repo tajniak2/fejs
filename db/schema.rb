@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130705131237) do
+ActiveRecord::Schema.define(:version => 20130708092626) do
+
+  create_table "friendships", :force => true do |t|
+    t.integer  "userA_id"
+    t.integer  "userB_id"
+    t.boolean  "accepted",   :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "friendships", ["userA_id", "userB_id"], :name => "index_friendships_on_userA_id_and_userB_id", :unique => true
+  add_index "friendships", ["userA_id"], :name => "index_friendships_on_userA_id"
+  add_index "friendships", ["userB_id"], :name => "index_friendships_on_userB_id"
 
   create_table "tweets", :force => true do |t|
     t.integer  "user_id"
