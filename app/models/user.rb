@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
     @status = 1
     @friendship = friendships.build(userB_id: friend_id)
     @friendship_rev = Friendship.where(userA_id: friend_id, userB_id: id)
-    if @friendship_rev
+    if @friendship_rev.exists?
       @friendship_rev.accepted = true
       @friendship_rev.save
       @friendship.accepted = true
