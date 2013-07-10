@@ -1,6 +1,16 @@
 ﻿require 'test_helper'
 
 class UsersTest < ActionDispatch::IntegrationTest
+  def create_and_log_in
+    user = FactoryGirl.create(:user1) 
+    visit root_path
+    click_on 'Zaloguj'
+    fill_in 'Adres e-mail', with: 'ktos@cos.pl' 
+    fill_in 'Hasło', with: '1'
+    click_button 'Zaloguj'
+    user
+  end
+
   test "registration" do
     visit root_path
     click_on 'Zarejestruj'
@@ -12,40 +22,12 @@ class UsersTest < ActionDispatch::IntegrationTest
   end
   
   test "log in" do
-    user = FactoryGirl.create(:user1)
-    #user.save
-    visit root_path
-    click_on 'Zaloguj'
-    fill_in 'Adres e-mail', with: 'ktos@cos.pl' 
-    fill_in 'Hasło', with: '1'
-    click_button 'Zaloguj'
+    create_and_log_in
     assert has_content?('Zalogowany jako ktos@cos.pl')
   end
   
-  test "save tweet" do
-    user = FactoryGirl.create(:user1)
-    #user.save
-    visit root_path
-    click_on 'Zaloguj'
-    fill_in 'Adres e-mail', with: 'ktos@cos.pl' 
-    fill_in 'Hasło', with: '1'
-    click_button 'Zaloguj'
-    
-    visit root_path
-    click_on 'Dodaj wpis'
-    fill_in 'Status', with: 'Taki sobie tweet' 
-    click_on 'Dodaj'
-    assert has_content?('ktos@cos.pl: Taki sobie tweet')
-  end
-  
   test "show user" do
-    user = FactoryGirl.create(:user1) 
-    #user.save
-    visit root_path
-    click_on 'Zaloguj'
-    fill_in 'Adres e-mail', with: 'ktos@cos.pl' 
-    fill_in 'Hasło', with: '1'
-    click_button 'Zaloguj'
+    user = create_and_log_in
     click_on 'Strona główna'
     click_on 'ktos@cos.pl'
     assert_equal user_path(user), current_path, "diffrent paths"
