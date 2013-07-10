@@ -13,7 +13,8 @@
 require 'test_helper'
 
 class FriendshipTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "forever alone (ability of being friend with yourself)" do
+    friendship = Friendship.new(userA_id: 1, userB_id: 1)
+    assert !friendship.valid?
+  end
 end

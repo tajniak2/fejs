@@ -28,7 +28,7 @@ end
 group :test do
   gem 'shoulda'
   gem 'capybara'
-  # gem 'launchy'
+  gem 'launchy'
 end
 
 gem 'jquery-rails'

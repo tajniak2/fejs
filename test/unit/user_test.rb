@@ -12,11 +12,5 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-#  test "uniqness of user" do
-#    user1 = FactoryGirl.create(:user_1)
-#	user2 = FactoryGirl.create(:user_1)
-#	user1.save
-#	assert !user2.save, "no uniqness"
-#  end
  
 end
