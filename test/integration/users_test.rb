@@ -2,7 +2,7 @@
 
 class UsersTest < ActionDispatch::IntegrationTest
   def create_and_log_in
-    user = FactoryGirl.create(:user1) 
+    user = FactoryGirl.create(:user_1) 
     visit root_path
     click_on 'Zaloguj'
     fill_in 'Adres e-mail', with: 'ktos@cos.pl' 
