@@ -23,7 +23,7 @@ class FriendshipTest < ActionDispatch::IntegrationTest
   end
   
   test "accept invitation and check feed" do
-    user_2.add_or_accept_friend(user_1)
+    @user_2.add_or_accept_friend(@user_1)
     log_in @user_2.email
     click_link 'Akceptuj zaproszenia'
     click_link 'Akceptuj'
