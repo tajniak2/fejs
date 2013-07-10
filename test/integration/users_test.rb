@@ -13,7 +13,7 @@ class UsersTest < ActionDispatch::IntegrationTest
   
   test "log in" do
     user = FactoryGirl.create(:user1)
-    user.save
+    #user.save
     visit root_path
     click_on 'Zaloguj'
     fill_in 'Adres e-mail', with: 'ktos@cos.pl' 
@@ -24,7 +24,7 @@ class UsersTest < ActionDispatch::IntegrationTest
   
   test "save tweet" do
     user = FactoryGirl.create(:user1)
-    user.save
+    #user.save
     visit root_path
     click_on 'Zaloguj'
     fill_in 'Adres e-mail', with: 'ktos@cos.pl' 
@@ -40,7 +40,7 @@ class UsersTest < ActionDispatch::IntegrationTest
   
   test "show user" do
     user = FactoryGirl.create(:user1) 
-    user.save
+    #user.save
     visit root_path
     click_on 'Zaloguj'
     fill_in 'Adres e-mail', with: 'ktos@cos.pl' 
