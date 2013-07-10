@@ -1,2 +1,4 @@
 <p><%= link_to user.email, user %>
-<%= link_to_if can_be_added?(user, current_user), "Dodaj znajomego", friendships_path(friend_id: user), method: :post %>
+<% if can_be_added?(user) %>
+<%= link_to "Dodaj znajomego", friendships_path(friend_id: user), method: :post %>
+<% end %></p>
