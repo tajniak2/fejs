@@ -31,19 +31,19 @@
     end
   end
   
-  def add_friend
-    @user = User.find(params[:id])
-    current_user.friends << @user
-    flash[:success] = "Zaproszenie zostało wysłanie"
-    render 'show'
-  end
+  # def add_friend
+    # @user = User.find(params[:id])
+    # current_user.friends << @user
+    # flash[:success] = "Zaproszenie zostało wysłanie"
+    # render 'show'
+  # end
   
-  def del_friend
-    @user = User.find(params[:id])
-    current_user.friends.destroy(@user)
-    flash[:success] = "Przestaliście być przyjaciółmi"
-    render 'show'
-  end
+  # def del_friend
+    # @user = User.find(params[:id])
+    # current_user.friends.destroy(@user)
+    # flash[:success] = "Przestaliście być przyjaciółmi"
+    # render 'show'
+  # end
   
   #def destroy
   #def edit
