@@ -1,6 +1,4 @@
-﻿﻿# == Schema Information
-#
-# Table name: users
+﻿# Table name: users
 #
 #  id              :integer          not null, primary key
 #  email           :string(255)
