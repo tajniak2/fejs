@@ -3,6 +3,11 @@
   
   def index
     @users = User.all
+    # @users.each do |user|
+        # if Friendship.find_by_userA_id_and_userB_id(current_user.id, user.id) || current_user == user
+            # user.can_be_added? = true
+        # end
+    # end
   end
   
   def show
@@ -17,7 +22,7 @@
   def create
     @user = User.new(params[:user])
     if @user.save
-      flash[:succes] = "Użykownik zarejestrowany"
+      flash[:success] = "Użykownik zarejestrowany"
 	  sign_in @user.id
       redirect_to @user
     else
@@ -29,14 +34,14 @@
   def add_friend
     @user = User.find(params[:id])
     current_user.friends << @user
-    flash[:succes] = "Zaproszenie zostało wysłanie"
+    flash[:success] = "Zaproszenie zostało wysłanie"
     render 'show'
   end
   
   def del_friend
     @user = User.find(params[:id])
     current_user.friends.destroy(@user)
-    flash[:succes] = "Przestaliście być przyjaciółmi"
+    flash[:success] = "Przestaliście być przyjaciółmi"
     render 'show'
   end
   

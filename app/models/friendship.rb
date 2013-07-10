@@ -1,3 +1,15 @@
+﻿# == Schema Information
+#
+# Table name: friendships
+#
+#  id         :integer          not null, primary key
+#  userA_id   :integer
+#  userB_id   :integer
+#  accepted   :boolean          default(FALSE)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Friendship < ActiveRecord::Base
   attr_accessible :userA_id, :userB_id, :accepted
   

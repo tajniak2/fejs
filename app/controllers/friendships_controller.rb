@@ -1,19 +1,14 @@
 ﻿class FriendshipsController < ApplicationController
   def create
-    @friendship = current_user.friendships.build(userB_id: params[:friend_id])
-    @firendship_rev = Friendship.find_by_userA_id_and_userB_id(params[:friend_id], current_user)
-    if @firendship_rev
-      @firendship_rev.accepted = true
-      @firendship_rev.save
-      @friendship.accepted = true
-    end
-    if @friendship.save
-      flash[:notice] = "Wysłano zaproszenie lub zaakceptowano znajomość"
-      redirect_to root_url
+    @status = current_user.add_or_accept_friend(params[:friend_id])
+    if @status == 1
+      flash[:success] = "Wysłano zaproszenie"
+    elsif @status == 2
+      flash[:success] = "Zaakceptowano znajomość"
     else
-      flash[:error] = "Coś nie tak..."
-      redirect_to root_url
+      flash[:error] = "Coś poszło nie tak..."
     end
+    redirect_to root_url
   end
 
   def destroy
@@ -29,7 +24,7 @@
   
   def index
     @user = current_user
-    @users = User.not_accepted(current_user)
+    @users = current_user.requests
   end
   
   #def accept
