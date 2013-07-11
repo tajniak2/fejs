@@ -29,8 +29,7 @@
   
   def destroy
     @tweet = Tweet.find(params[:id])
-    @tweet.current = false
-    if @tweet.save
+    if @tweet.hide
       flash[:succes] = "Wpis został usunięty"
       redirect_to current_user
     else

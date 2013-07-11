@@ -52,4 +52,10 @@ class Tweet < ActiveRecord::Base
       nil
     end
   end
+  
+  def hide
+    self.current = false
+    self.save
+  end
+  
 end
