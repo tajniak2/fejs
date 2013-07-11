@@ -13,7 +13,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     click_button 'Zaloguj'
   end
 
-  test "after registration user should be shown in User's controller index" do
+  test "user should be visible in all users list" do
     visit root_path
     click_on 'Zarejestruj'
     fill_in 'Adres e-mail', with: '1@1.pl' 
