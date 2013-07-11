@@ -29,4 +29,19 @@ class Tweet < ActiveRecord::Base
     friends_ids = Friendship.find_all_by_userA_id_and_accepted(user.id, true).map(&:userB_id)
     where("user_id IN (?) OR user_id = ?", friends_ids, user.id)
   end
+  
+  def save_new
+    if self.save
+      self.tweet_id = @tweet.id
+      self.save
+    else
+      false
+    end
+  end
+  
+  def save_update(user, params)
+    tweet_new = user.tweets.new(params)
+	current = false
+	status != params[:status] && self.save && tweet_new.save
+  end
 end

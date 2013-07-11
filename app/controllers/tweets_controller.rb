@@ -8,7 +8,7 @@
   def show
     @user = User.find(params[:user_id])
     @tweet = Tweet.find(params[:id])
-    @tweets = Tweet.find_all_by_tweet_id(@tweet.tweet_id)
+    @tweets = Tweet.where(tweet_id: @tweet.tweet_id)
   end
   
   def new
@@ -19,9 +19,7 @@
   def create
     @user = User.find(params[:user_id])
     @tweet = @user.tweets.new(params[:tweet])
-    if @tweet.save
-      @tweet.tweet_id = @tweet.id
-      @tweet.save
+    if @tweet.save_new
       flash[:succes] = "Wpis został zapisany"
       redirect_to current_user
     else
@@ -33,10 +31,10 @@
     @tweet = Tweet.find(params[:id])
     @tweet.current = false
     if @tweet.save
-      flash[:succes] = "Ok"
+      flash[:succes] = "Wpis został usunięty"
       redirect_to current_user
     else
-      flash[:error] = "Źle"
+      flash[:error] = "Wpis nie został usunięty"
       render 'show'
     end
   end
@@ -49,12 +47,10 @@
   def update
     @user = User.find(params[:user_id])
     @tweet = Tweet.find(params[:id])
-	@tweet_new = @user.tweets.new(params[:tweet])
-	@tweet.current = false
-	if @tweet.status != params[:tweet][:status] && @tweet.save && @tweet_new.save
+	if @tweet.save_update(@user, params[:tweet])
 	  redirect_to [@user, @tweet_new]
 	else
-	  flash.now[:error] = "Niedokonano żadnej zmiany " + params[:tweet].to_s + " " + @tweet.current.to_s + " " + @tweet_new.current.to_s
+	  flash.now[:error] = "Niedokonano żadnej zmiany"
 	  render 'edit'
 	end
   end
