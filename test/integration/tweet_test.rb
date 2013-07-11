@@ -3,8 +3,9 @@
 class TweetTest < ActionDispatch::IntegrationTest
   def setup
     @user = FactoryGirl.create(:user_1)
-    @tweet = @user.tweets.build(status: "Taki sobie tweet", current: true, version: 1, tweet_id: 1)
-    @tweet.save
+    @tweet_1 = @user.tweets.build(status: "Taki sobie tweet", current: true, version: 1, tweet_id: 1)
+    @tweet_1.save
+    @tweet_2 = @user.tweets.build(status: "Jakiś tweet", current: true, version: 1)
   end
 
   def log_in
@@ -26,7 +27,7 @@ class TweetTest < ActionDispatch::IntegrationTest
   
   test "after editing tweet, on tweet's page should appear new and old version" do
     log_in 
-    visit(user_tweet_path(@user, @tweet))
+    visit(user_tweet_path(@user, @tweet_1))
     click_on 'Edytuj'
     fill_in 'Status', with: 'Taki'
     click_on 'Dodaj'
@@ -40,10 +41,12 @@ class TweetTest < ActionDispatch::IntegrationTest
   end
   
   test "deleted tweets does not appear in user's tweets" do
+    @tweet_2.save
+    log_in
     visit(user_path(@user))
-    click_on 'Taki'
+    click_on 'Jakiś tweet'
     click_on 'Usuń'
     visit(user_path(@user))
-    assert !has_content?('Taki'), "deleted tweets does not disappear"
+    assert !has_content?('Jakiś tweet'), "deleted tweets does not disappear"
   end
 end
