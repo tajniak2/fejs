@@ -69,4 +69,12 @@ class TweetTest < ActiveSupport::TestCase
     tweet_1.save
     assert_raise(ActiveRecord::RecordNotUnique) { tweet_2.save }
   end
+  
+  test "deleting tweet should ony hide it" do
+    @tweet.save_new
+    tweet_id = @tweet.id
+    @tweet.hide
+    assert Tweet.find(tweet_id), "tweet has been removed"
+    assert !@tweet.current, "tweet hasn't been hidden"
+  end
 end
