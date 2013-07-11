@@ -31,6 +31,8 @@ class Tweet < ActiveRecord::Base
   end
   
   def save_new
+    self.version = 1
+    self.current = true
     if self.save
       self.tweet_id = id
       self.save
