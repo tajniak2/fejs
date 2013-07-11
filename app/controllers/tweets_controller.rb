@@ -47,7 +47,8 @@
   def update
     @user = User.find(params[:user_id])
     @tweet = Tweet.find(params[:id])
-	if @tweet.save_update(@user, params[:tweet])
+    @tweet_new = @tweet.save_update(@user, params[:tweet])
+	if @tweet_new
 	  redirect_to [@user, @tweet_new]
 	else
 	  flash.now[:error] = "Niedokonano żadnej zmiany"

@@ -32,7 +32,7 @@ class Tweet < ActiveRecord::Base
   
   def save_new
     if self.save
-      self.tweet_id = @tweet.id
+      self.tweet_id = id
       self.save
     else
       false
@@ -41,7 +41,14 @@ class Tweet < ActiveRecord::Base
   
   def save_update(user, params)
     tweet_new = user.tweets.new(params)
-	current = false
-	status != params[:status] && self.save && tweet_new.save
+    tweet_new.version = version + 1
+    tweet_new.current = true
+    tweet_new.tweet_id = tweet_id
+	self.current = false
+	if status != params[:status] && self.save && tweet_new.save
+      tweet_new
+    else
+      nil
+    end
   end
 end
