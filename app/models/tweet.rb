@@ -22,8 +22,7 @@ class Tweet < ActiveRecord::Base
   
   validates :status, presence: true
   validates :version, presence: true
-  # validates :current, presence: true
-  # validates :tweet_id, presence: true
+  # validates :current, presence: true - pod dodaniu tego wszystko siê sypie :P
   
   def self.from_friends(user)
     friends_ids = Friendship.find_all_by_userA_id_and_accepted(user.id, true).map(&:userB_id)
