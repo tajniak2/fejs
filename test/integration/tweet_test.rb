@@ -15,7 +15,7 @@ class TweetTest < ActionDispatch::IntegrationTest
     click_button 'Zaloguj'
   end
 
-  test "save & show tweet" do
+  test "after sending tweet user should see it" do
     log_in    
     visit root_path
     click_on 'Dodaj wpis'
@@ -24,7 +24,7 @@ class TweetTest < ActionDispatch::IntegrationTest
     assert has_content?('ktos@cos.pl: Taki sobie tweet')
   end
   
-  test "edit tweet" do
+  test "after editing tweet, on tweet's page should appear new and old version" do
     log_in 
     visit(user_tweet_path(@user, @tweet))
     click_on 'Edytuj'
@@ -34,7 +34,7 @@ class TweetTest < ActionDispatch::IntegrationTest
     assert has_content?('2: Taki'), "luck of 2: Taki after editing tweet"
   end
   
-  test "does old tweet disappear" do
+  test "after edit only new version of tweet should be shown" do
     visit(user_path(@user))
     assert !has_content?('Taki sobie tweet'), "edited tweets does not disappear"
   end

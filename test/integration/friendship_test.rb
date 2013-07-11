@@ -15,14 +15,14 @@ class FriendshipTest < ActionDispatch::IntegrationTest
     click_button 'Zaloguj'
   end
 
-  test "add friend" do
+  test "after sending invitation user should see info that invitation has been sent" do
     log_in @user_1.email
     visit root_path
     click_link 'Dodaj znajomego'
     assert has_content?('Wysłano zaproszenie'), "invitation hasn't been sent"
   end
   
-  test "accept invitation and check feed" do
+  test "after accepting invitation user should see tweets of new friend" do
     @user_1.add_or_accept_friend(@user_2.id)
     log_in @user_2.email
     click_link 'Akceptuj zaproszenia'

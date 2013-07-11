@@ -13,7 +13,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     click_button 'Zaloguj'
   end
 
-  test "registration" do
+  test "after registration user should be shown in User's controller index" do
     visit root_path
     click_on 'Zarejestruj'
     fill_in 'Adres e-mail', with: '1@1.pl' 
@@ -23,12 +23,12 @@ class UsersTest < ActionDispatch::IntegrationTest
     assert has_content?('1@1.pl')
   end
   
-  test "log in" do
+  test "after loging in user should see info that he/she is logged in" do
     log_in
     assert has_content?('Zalogowany jako ktos@cos.pl')
   end
   
-  test "show user" do
+  test "clicking user's link on root page should redirect to user's page" do
     log_in
     click_on 'Strona główna'
     click_on 'ktos@cos.pl'
@@ -36,7 +36,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     assert has_content?('ktos@cos.pl'), "don't have ktos@cos.pl"
   end
   
-  test "log out" do
+  test "after loging out user should see link to log in" do
     log_in
     click_on 'Wyloguj'
     assert has_content?('Zaloguj'), "loging out does not work"
