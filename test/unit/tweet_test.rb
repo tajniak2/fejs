@@ -18,6 +18,7 @@ class TweetTest < ActiveSupport::TestCase
   def setup
     @user = FactoryGirl.create(:user_1)
     @tweet = @user.tweets.build(status: "Fajny status")
+    @tweet_2 = @user.tweets.build(status: "Fajny tweet")
   end
 
   test "if save_new method saves tweet properly" do
@@ -36,5 +37,12 @@ class TweetTest < ActiveSupport::TestCase
     assert_equal @tweet.tweet_id, tweet_new.tweet_id, "tweet_new's id set incorrectly"
     assert tweet_new.current, "tweet_new's current set incorrectly"
     assert !@tweet.current, "old tweet's current set incorrectly"
+  end
+  
+  test "sending empty tweet should fail" do
+    @tweet_2.save_new
+    tweet_new = @tweet_2.save_update(@user, {status: ""} )
+    tweet_old = Tweet.find(@tweet_2.id)
+    assert tweet_old.current, "Old tweet has been hidden"
   end
 end
