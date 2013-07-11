@@ -17,6 +17,8 @@ require 'test_helper'
 class TweetTest < ActiveSupport::TestCase
   def setup
     @user = FactoryGirl.create(:user_1)
+    @user_1 = FactoryGirl.create(:user_0)
+    @user_2 = FactoryGirl.create(:user_0)
     @tweet = @user.tweets.build(status: "Fajny status")
     @tweet_2 = @user.tweets.build(status: "Fajny tweet")
   end
@@ -44,5 +46,20 @@ class TweetTest < ActiveSupport::TestCase
     tweet_new = @tweet_2.save_update(@user, {status: ""} )
     tweet_old = Tweet.find(@tweet_2.id)
     assert tweet_old.current, "Old tweet has been hidden"
+  end
+  
+  test "after calling from_friends it should show all friends' posts" do
+    tweet_1 = @user_1.tweets.new(status: "Cool")
+    tweet_2 = @user_2.tweets.new(status: "Cool story bro")
+    tweet_3 = @user.tweets.new(status: "Cool story")
+    tweet_1.save_new
+    tweet_2.save_new
+    tweet_3.save_new
+    Friendship.create(userA_id: @user_1.id, userB_id: @user_2.id, accepted: true)
+    Friendship.create(userA_id: @user_2.id, userB_id: @user_1.id, accepted: true)
+    friends_tweets = Tweet.from_friends @user_1
+    assert friends_tweets.include?(tweet_1), "it doesn't show user_1 tweet"
+    assert friends_tweets.include?(tweet_2), "it doesn't show user_2 tweet"
+    assert !friends_tweets.include?(tweet_3), "it does show user tweet"
   end
 end
