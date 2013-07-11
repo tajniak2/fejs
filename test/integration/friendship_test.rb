@@ -5,6 +5,7 @@ class FriendshipTest < ActionDispatch::IntegrationTest
     @user_1 = FactoryGirl.create(:user_0)
     @user_2 = FactoryGirl.create(:user_0)
     @tweet = @user_1.tweets.build(status: "Taki sobie tweet", current: true, version: 1, tweet_id: 1)
+    @tweet.save
   end
 
   def log_in(email)
