@@ -46,7 +46,7 @@ class Tweet < ActiveRecord::Base
     tweet_new.current = true
     tweet_new.tweet_id = tweet_id
 	self.current = false
-	if status != params[:status] && tweet_new.valid? && self.save && tweet_new.save
+	if status != params[:status] && tweet_new.save && self.save
       tweet_new
     else
       nil

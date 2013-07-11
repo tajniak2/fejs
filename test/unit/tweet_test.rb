@@ -62,4 +62,11 @@ class TweetTest < ActiveSupport::TestCase
     assert friends_tweets.include?(tweet_2), "it doesn't show user_2 tweet"
     assert !friends_tweets.include?(tweet_3), "it does show user tweet"
   end
+  
+  test "sending two tweets with the same tweet_id and version should fail" do
+    tweet_1 = @user.tweets.new(status: "Cool story", version: 6, tweet_id: 23)
+    tweet_2 = @user.tweets.new(status: "Not cool story bro", version: 6, tweet_id: 23)
+    tweet_1.save
+    assert_raise(ActiveRecord::RecordNotUnique) { tweet_2.save }
+  end
 end

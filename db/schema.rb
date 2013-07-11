@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130708092626) do
+ActiveRecord::Schema.define(:version => 20130711120804) do
 
   create_table "friendships", :force => true do |t|
     t.integer  "userA_id"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(:version => 20130708092626) do
     t.boolean  "current"
     t.integer  "tweet_id"
   end
+
+  add_index "tweets", ["tweet_id", "version"], :name => "index_tweets_on_tweet_id_and_version", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email"
