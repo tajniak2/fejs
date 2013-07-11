@@ -34,8 +34,16 @@ class TweetTest < ActionDispatch::IntegrationTest
     assert has_content?('2: Taki'), "luck of 2: Taki after editing tweet"
   end
   
-  test "after edit only new version of tweet should be shown" do
+  test "after editing only new version of tweet should be shown" do
     visit(user_path(@user))
     assert !has_content?('Taki sobie tweet'), "edited tweets does not disappear"
+  end
+  
+  test "deleted tweets does not appear in user's tweets" do
+    visit(user_path(@user))
+    click_on 'Taki'
+    click_on 'Usuń'
+    visit(user_path(@user))
+    assert !has_content?('Taki'), "deleted tweets does not disappear"
   end
 end
