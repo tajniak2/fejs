@@ -46,18 +46,13 @@
   def update
     @user = User.find(params[:user_id])
     @tweet = Tweet.find(params[:id])
-    begin
-      @tweet_new = @tweet.save_update(@user, params[:tweet])
-	  if @tweet_new
-        redirect_to [@user, @tweet_new]
-	  else
-        flash.now[:error] = "Niedokonano żadnej zmiany"
-        render 'edit'
-	  end
-    rescue ActiveRecord::RecordNotUnique
-      flash.now[:error] = "W czasie edytowania przez Ciebie wpisu ktoś inny go zmienił"
-      render 'show'
-    end
+    @tweet_new = @tweet.save_update(@user, params[:tweet])
+	if @tweet_new
+      redirect_to [@user, @tweet_new]
+	else
+      flash.now[:error] = "Niedokonano żadnej zmiany"
+      render 'edit'
+	end
   end
   
   private
