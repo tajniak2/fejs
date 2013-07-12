@@ -11,4 +11,8 @@
     redirect_to login_url, alert: "Nieutoryzowany dostęp" if current_user.nil?
   end
   
+  def correct_user?(user)
+    current_user == user
+  end
+  
 end

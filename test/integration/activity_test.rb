@@ -36,7 +36,7 @@ class ActivityTest < ActionDispatch::IntegrationTest
     click_on 'Dodaj'
     visit activities_path
     assert has_link?('ktos@cos.pl'), "there is no link to user"
-    assert has_content?('zakutualizował wpis Taki2'), "there is no info"
+    assert has_content?('zaktualizował wpis Taki2'), "there is no info"
   end
   
   test "deleting tweet should show information about activity" do
