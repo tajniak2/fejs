@@ -20,6 +20,7 @@
     @user = User.find(params[:user_id])
     @tweet = @user.tweets.new(params[:tweet])
     if @tweet.save_new
+      track_activity @tweet
       flash[:succes] = "Wpis został zapisany"
       redirect_to current_user
     else
@@ -30,6 +31,7 @@
   def destroy
     @tweet = Tweet.find(params[:id])
     if @tweet.hide
+      track_activity @tweet
       flash[:succes] = "Wpis został usunięty"
       redirect_to current_user
     else
@@ -48,6 +50,7 @@
     @tweet = Tweet.find(params[:id])
     @tweet_new = @tweet.save_update(@user, params[:tweet])
 	if @tweet_new
+      track_activity @tweet_new
       redirect_to [@user, @tweet_new]
 	else
       flash.now[:error] = "Niedokonano żadnej zmiany"

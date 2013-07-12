@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: "userB_id"
   has_many :requests, through: :inverse_friendships, source: :userA, conditions: {friendships: {accepted: false}}
   
+  has_many :activities
+  
   validates :email, presence: true, uniqueness: true
   
   def add_or_accept_friend(friend_id)
