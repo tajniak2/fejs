@@ -6,5 +6,5 @@
 <% end %>
 <h2>Poprzednie wersje</h2>
 <% @tweets.each do |tweet| %>
-   <p><%= tweet.version %>: <%= tweet.status %></p>
+   <p><%= tweet.version %>: <%= tweet.status %> | <%= link_to "Przywróć", [@user, @tweet], method: :put, tweet: {status: tweet.status}  %> </p>
 <% end %>
