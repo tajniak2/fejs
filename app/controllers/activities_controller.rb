@@ -1,5 +1,5 @@
 class ActivitiesController < ApplicationController
   def index
-    @activities = Activity.order("created_at desc")
+    @activities = Activity.from_friends(current_user)
   end
 end
