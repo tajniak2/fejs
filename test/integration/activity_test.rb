@@ -76,7 +76,7 @@ class ActivityTest < ActionDispatch::IntegrationTest
     click_on 'Akceptuj zaproszenie'
     visit activities_path
     assert has_link?('ktos@cos.pl'), "there is no link to user after accepting"
-    assert has_content?('zaakceptował zaproszenie od ' + @user_1.email), "there is no info about accepting"
+    assert has_content?('zaakceptował zaproszenie od ' + @user.email), "there is no info about accepting after it"
     assert has_content?('wysłał zaproszenie do ' + @user_1.email), "there is no info about sending request after accepting"
     assert has_link?(@user_1.email), "there is no link to invited user"
   end
