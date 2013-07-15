@@ -1,9 +1,6 @@
 Facebook::Application.routes.draw do
 
-  
   resources :activities
-
-
   resources :users do
     resources :tweets
   end
@@ -17,6 +14,9 @@ Facebook::Application.routes.draw do
   
   match 'feed', to: 'friendships#feed', as: 'feed'
   match 'requests', to: 'friendships#index', as: 'requests'
+  
+  match 'users/:user_id/tweets/:tweet_id/revert/:revert_id', to: 'tweets#revert', as: 'tweet_revert'
+  
   #match 'accept/:userB_id', to: 'friendships#accept', as: 'accept'
   
   #match 'users/:id/add', to: 'friendship#add', as: 'add_user_to_friends'

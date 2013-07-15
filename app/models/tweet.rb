@@ -76,4 +76,17 @@ class Tweet < ActiveRecord::Base
     self.save
   end
   
+  def revert (user, tweet_old)
+    tweet = user.tweets.new
+    tweet.status = tweet_old.status
+    tweet.version = version + 1
+    tweet.current = true
+    tweet.tweet_id = tweet_id
+    self.current = false
+	if tweet.save && self.save
+      tweet
+    else
+      nil
+    end
+  end
 end

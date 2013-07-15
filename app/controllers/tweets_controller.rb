@@ -58,6 +58,12 @@
 	end
   end
   
+  def revert
+    @tweet = Tweet.find(params[:tweet_id])
+    @tweet_old = Tweet.find(params[:revert_id])
+    redirect_to [current_user, @tweet.revert(current_user, @tweet_old)]
+  end
+  
   private
   
     def correct_user
