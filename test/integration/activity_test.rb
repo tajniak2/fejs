@@ -3,6 +3,7 @@
 class ActivityTest < ActionDispatch::IntegrationTest
   def setup
     @user = FactoryGirl.create(:user_1)
+    @user_1 = FactoryGirl.create(:user_0)
     @tweet = @user.tweets.new(status: "Fajny")
   end
   
@@ -47,5 +48,14 @@ class ActivityTest < ActionDispatch::IntegrationTest
     visit activities_path
     assert has_link?('ktos@cos.pl'), "there is no link to user"
     assert has_content?('usunął wpis'), "there is no info"
+  end
+  
+  test "sending request should show information about activity" do
+    log_in
+    click_on 'Dodaj znajomego'
+    visit activities_path    
+    assert has_link?('ktos@cos.pl'), "there is no link to user"
+    assert has_content?('wysłał zaproszenie do'), "there is no info"
+    assert has_link?(@user_1.email), "there is no link to invited user"
   end
 end

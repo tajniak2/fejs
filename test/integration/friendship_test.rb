@@ -29,6 +29,6 @@ class FriendshipTest < ActionDispatch::IntegrationTest
     click_link 'Akceptuj zaproszenia'
     click_link 'Akceptuj'
     click_link 'Aktualności'
-    assert has_content?('ktos1@cos.pl: Taki sobie tweet'), "user_1's tweet not in user_1's feed"
+    assert has_content?(@user_1.email + ': Taki sobie tweet'), "user_1's tweet not in user_1's feed"
   end
 end
