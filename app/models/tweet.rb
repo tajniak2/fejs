@@ -20,28 +20,10 @@ class Tweet < ActiveRecord::Base
   
   belongs_to :user
   
-  validate :handle_conflict
   validates :status, presence: true
   validates :version, presence: true
   # validates :current, presence: true - pod dodaniu tego wszystko się sypie :P
-  
-  
-  def original_updated_at
-    @original_updated_at || updated_at.to_f
-  end
-  attr_writer :original_updated_at
-
-  def handle_conflict
-    if @conflict || updated_at.to_f > original_updated_at.to_f
-      @conflict = true
-      @original_updated_at = nil
-      errors.add :base, "Wpis został zmieniony podczas dokonywania przez Ciebie zmian. Weż proszę pod uwagę poniższe zmiany"
-      changes.each do |attribute, values|
-        errors.add attribute, "było #{values.first}"
-      end
-    end
-  end
-  
+   
   def self.from_friends(user)
     friends_ids = Friendship.find_all_by_userA_id_and_accepted(user.id, true).map(&:userB_id)
     where("user_id IN (?) OR user_id = ?", friends_ids, user.id)
