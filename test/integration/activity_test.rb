@@ -7,10 +7,10 @@ class ActivityTest < ActionDispatch::IntegrationTest
     @tweet = @user.tweets.new(status: "Fajny")
   end
   
-  def log_in
+  def log_in(email = 'ktos@cos.pl')
     visit root_path
     click_on 'Zaloguj'
-    fill_in 'Adres e-mail', with: 'ktos@cos.pl' 
+    fill_in 'Adres e-mail', with: email
     fill_in 'Hasło', with: '1'
     click_button 'Zaloguj'
   end
@@ -50,12 +50,20 @@ class ActivityTest < ActionDispatch::IntegrationTest
     assert has_content?('usunął wpis'), "there is no info"
   end
   
-  test "sending request should show information about activity" do
+  test "sending request and accepting it should show information about activity" do
     log_in
     click_on 'Dodaj znajomego'
     visit activities_path    
-    assert has_link?('ktos@cos.pl'), "there is no link to user"
-    assert has_content?('wysłał zaproszenie do'), "there is no info"
+    assert has_link?('ktos@cos.pl'), "there is no link to user before accepting"
+    assert has_content?('wysłał zaproszenie do ' + @user_1.email), "there is no info before accepting"
+    assert has_link?(@user_1.email), "there is no link to invited user before accepting"
+    click_on 'Wyloguj'
+    log_in @user_1.email
+    click_on 'Akceptuj zaproszenie'
+    visit activities_path
+    assert has_link?('ktos@cos.pl'), "there is no link to user after accepting"
+    assert has_content?('zaakceptował zaproszenie od ' + @user_1.email), "there is no info about accepting"
+    assert has_content?('wysłał zaproszenie do ' + @user_1.email), "there is no info about sending request after accepting"
     assert has_link?(@user_1.email), "there is no link to invited user"
   end
 end
