@@ -61,7 +61,9 @@
   def revert
     @tweet = Tweet.find(params[:tweet_id])
     @tweet_old = Tweet.find(params[:revert_id])
-    redirect_to [current_user, @tweet.revert(current_user, @tweet_old)]
+    @tweet_new = @tweet.revert(current_user, @tweet_old)
+    track_activity @tweet_new
+    redirect_to [current_user, @tweet_new]
   end
   
   private

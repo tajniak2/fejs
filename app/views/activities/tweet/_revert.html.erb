@@ -1,0 +1,3 @@
+﻿<% if tweet && tweet.current %>  zaktualizował wpis <%= link_to tweet.status, [tweet.user, tweet] %>, przywracając poprzednią wersję
+<% else %>  zaktualizował wpis, który został usunięty lub zmieniony, przywracając poprzednią wersję
+<% end %>

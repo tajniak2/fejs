@@ -40,6 +40,20 @@ class ActivityTest < ActionDispatch::IntegrationTest
     assert has_content?('zaktualizował wpis Taki2'), "there is no info"
   end
   
+  test "revervting tweet should show information about activity" do
+    log_in
+    @tweet.save_new
+    visit(user_tweet_path(@user, @tweet))
+    click_on 'Edytuj'
+    fill_in 'Status', with: 'Taki2'
+    click_on 'Dodaj'
+    click_on 'Przywróć'
+    visit activities_path
+    save_and_open_page
+    assert has_link?('ktos@cos.pl'), "there is no link to user"
+    assert has_content?('zaktualizował wpis Fajny, przywracając poprzednią wersję'), "there is no info"
+  end
+  
   test "deleting tweet should show information about activity" do
     log_in
     @tweet.save_new
