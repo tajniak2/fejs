@@ -76,7 +76,7 @@ class Tweet < ActiveRecord::Base
     self.save
   end
   
-  def revert (user, tweet_old)
+  def revert(user, tweet_old)
     tweet = user.tweets.new
     tweet.status = tweet_old.status
     tweet.version = version + 1
