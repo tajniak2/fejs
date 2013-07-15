@@ -2,10 +2,10 @@
   def create
     @status = current_user.add_or_accept_friend(params[:friend_id])
     if @status[0] == 1
-      track_activity @status[1]
+      track_activity(@status[1], 'sent')
       flash[:success] = "Wysłano zaproszenie"
     elsif @status[0] == 2
-      track_activity @status[1]
+      track_activity(@status[1], 'accepted')
       flash[:success] = "Zaakceptowano znajomość"
     else
       flash[:error] = "Coś poszło nie tak..."
