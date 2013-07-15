@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
   
   validates :email, presence: true, uniqueness: true
   
+  before_create :set_seen_feed
+  
   def add_or_accept_friend(friend_id)
     # status: 0 - failed, 1 - added, 2 - accepted
     @status = 1
@@ -37,4 +39,14 @@ class User < ActiveRecord::Base
     @status = 0 unless @friendship.save
     [@status, @friendship]
   end
+  
+  def update_seen_feed
+    self.seen_feed = Time.now
+    self.save
+  end
+  
+  def set_seen_feed
+    self.seen_feed = Time.now
+  end
+  
 end

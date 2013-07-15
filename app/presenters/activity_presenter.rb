@@ -8,7 +8,7 @@ class ActivityPresenter < SimpleDelegator
   
   def render_activity
     div_for activity do
-      link_to(activity.user.email, activity.user) + " " + render_partial
+      link_to(activity.user.email, activity.user) + " " + render_partial + if_new
     end
   end
   
@@ -30,6 +30,10 @@ class ActivityPresenter < SimpleDelegator
       "activities/#{activity.trackable_type.underscore}",
       "activities/activity"
     ]
+  end
+  
+  def if_new
+    " (nowe!)" if current_user.seen_feed.nil? || current_user.seen_feed < @activity.created_at
   end
 end
 
