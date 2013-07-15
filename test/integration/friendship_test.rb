@@ -34,12 +34,16 @@ class FriendshipTest < ActionDispatch::IntegrationTest
     assert !has_link?('Dodaj znajomego'), "link to invite user is still there" 
   end
   
-  test "after accepting invitation user should see tweets of new friend" do
+  test "after accepting invitation user should see tweets of new friend and only his tweets" do
+    user_3 = FactoryGirl.create(:user_0)
     @user_1.add_or_accept_friend(@user_2.id)
+    tweet = user_3.tweets.build({status: "Fajny tweet"})
+    tweet.save_new
     log_in @user_2.email
     click_link 'Akceptuj zaproszenia'
     click_link 'Akceptuj'
     click_link 'Aktualności'
     assert has_content?(@user_1.email + ': Taki sobie tweet'), "user_1's tweet not in user_1's feed"
+    assert !has_content?(user_3.email + ': Fajny tweet'), "user_3's tweet in user_1's feed"
   end
 end
