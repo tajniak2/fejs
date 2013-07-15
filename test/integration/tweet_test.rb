@@ -3,9 +3,11 @@
 class TweetTest < ActionDispatch::IntegrationTest
   def setup
     @user = FactoryGirl.create(:user_1)
+    @user_1 = FactoryGirl.create(:user_0)
     @tweet_1 = @user.tweets.build(status: "Taki sobie tweet", current: true, version: 1, tweet_id: 1)
     @tweet_1.save
     @tweet_2 = @user.tweets.build(status: "Jakiś tweet", current: true, version: 1)
+    @tweet_3 = @user_1.tweets.build(status: "Fajny tweet", current: true, version: 1)
   end
 
   def log_in
@@ -60,5 +62,12 @@ class TweetTest < ActionDispatch::IntegrationTest
     assert has_content?('1: Taki sobie tweet'), "luck of 1: Taki sobie tweet after editing tweet"
     assert has_content?('2: Taki'), "luck of 2: Taki after editing tweet"
     assert has_content?('3: Taki sobie tweet'), "luck of 3: Taki sobie tweet after editing tweet"
+  end
+  
+  test "if editing of other user's tweets is diabled" do
+    log_in 
+    @tweet_3.save
+    visit(user_tweet_path(@user_1, @tweet_3))
+    assert !has_link?('Edytuj'), "there is editing link"
   end
 end
