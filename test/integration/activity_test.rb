@@ -22,7 +22,6 @@ class ActivityTest < ActionDispatch::IntegrationTest
     fill_in 'Status', with: 'Taki sobie tweet' 
     click_on 'Dodaj'
     visit activities_path
-    # save_and_open_page
     # within 'div#activity' do
     assert has_link?('ktos@cos.pl'), "there is no link to user"
     assert has_content?('utworzył nowy wpis Taki sobie tweet'), "there is no info"
@@ -49,7 +48,6 @@ class ActivityTest < ActionDispatch::IntegrationTest
     click_on 'Dodaj'
     click_on 'Przywróć'
     visit activities_path
-    save_and_open_page
     assert has_link?('ktos@cos.pl'), "there is no link to user"
     assert has_content?('zaktualizował wpis Fajny, przywracając poprzednią wersję'), "there is no info"
   end
