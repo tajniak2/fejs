@@ -77,4 +77,15 @@ class TweetTest < ActiveSupport::TestCase
     assert Tweet.find(tweet_id), "tweet has been removed"
     assert !@tweet.current, "tweet hasn't been hidden"
   end
+  
+  test "reverting should work" do
+    @tweet.save_new
+    tweet_new = @tweet.save_update(@user, {status: "Fajny"} )
+    tweet_new_2 = tweet_new.revert(@user, @tweet)
+    assert_equal @tweet.status, tweet_new_2.status, "diffrent status"
+    assert_equal 3, tweet_new_2.version, "wrong verion"
+    assert tweet_new_2.current, "Reverted tweet is not current"
+    assert !@tweet.current, "First tweet is current"
+    assert !tweet_new.current, "Second tweet is not current"
+  end
 end
