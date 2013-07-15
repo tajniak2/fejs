@@ -49,4 +49,16 @@ class TweetTest < ActionDispatch::IntegrationTest
     visit(user_path(@user))
     assert !has_content?('Jakiś tweet'), "deleted tweets does not disappear"
   end
+  
+  test "after clicik on revert old tweet should be reverted" do
+    log_in 
+    visit(user_tweet_path(@user, @tweet_1))
+    click_on 'Edytuj'
+    fill_in 'Status', with: 'Taki'
+    click_on 'Dodaj'
+    click_on 'Przywróć'
+    assert has_content?('1: Taki sobie tweet'), "luck of 1: Taki sobie tweet after editing tweet"
+    assert has_content?('2: Taki'), "luck of 2: Taki after editing tweet"
+    assert has_content?('3: Taki sobie tweet'), "luck of 3: Taki sobie tweet after editing tweet"
+  end
 end
