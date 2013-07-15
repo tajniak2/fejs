@@ -21,6 +21,14 @@ class FriendshipTest < ActionDispatch::IntegrationTest
     visit root_path
     click_link 'Dodaj znajomego'
     assert has_content?('Wysłano zaproszenie'), "invitation hasn't been sent"
+    assert !has_link?('Dodaj znajomego'), "link to invite user is still there"
+  end
+  
+  test "after receiving invitation user should see proper link" do
+    log_in @user_2.email
+    visit root_path
+    assert has_link?('Akceptuj zaproszenie'), "there is no accepting invitation link"
+    assert !has_link?('Dodaj znajomego'), "link to invite user is still there"
   end
   
   test "after accepting invitation user should see tweets of new friend" do
