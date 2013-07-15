@@ -1,14 +1,16 @@
 ﻿class FriendshipsController < ApplicationController
   def create
     @status = current_user.add_or_accept_friend(params[:friend_id])
-    if @status == 1
+    if @status[0] == 1
+      track_activity @status[1]
       flash[:success] = "Wysłano zaproszenie"
-    elsif @status == 2
+    elsif @status[0] == 2
+      track_activity @status[1]
       flash[:success] = "Zaakceptowano znajomość"
     else
       flash[:error] = "Coś poszło nie tak..."
     end
-    redirect_to root_url
+    redirect_to root_url 
   end
 
   def destroy

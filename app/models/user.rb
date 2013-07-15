@@ -35,6 +35,6 @@ class User < ActiveRecord::Base
       @status = 2
     end
     @status = 0 unless @friendship.save
-    @status
+    [@status, @friendship]
   end
 end
