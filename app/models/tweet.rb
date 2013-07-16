@@ -42,7 +42,7 @@ class Tweet < ActiveRecord::Base
   
   def save_update(user, params)
     tweet_new = user.tweets.new(params)
-    tweet_new.version = self.version + 1
+    tweet_new.version = params[:version] #self.version + 1
     tweet_new.current = true
     tweet_new.tweet_id = tweet_id
 	self.current = false

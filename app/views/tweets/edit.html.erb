@@ -3,6 +3,7 @@
 
   <%= f.label :status, "Status" %>
   <%= f.text_field :status %>
+  <%= f.hidden_field :version, value: (@tweet.version + 1) %>
   <br />
   <%= f.submit "Dodaj" %>
 <% end %>

@@ -33,7 +33,7 @@ class TweetTest < ActiveSupport::TestCase
   
   test "if save_update method updates tweet properly" do
     @tweet.save_new
-    tweet_new = @tweet.save_update(@user, {status: "Fajny"} )
+    tweet_new = @tweet.save_update(@user, {status: "Fajny", version: (@tweet.version + 1)} )
     assert_equal "Fajny", tweet_new.status, "tweet_new's status set incorrectly"
     assert_equal @tweet.version + 1, tweet_new.version, "tweet_ne's version set incorrectly"
     assert_equal @tweet.tweet_id, tweet_new.tweet_id, "tweet_new's id set incorrectly"
@@ -80,7 +80,7 @@ class TweetTest < ActiveSupport::TestCase
   
   test "reverting should work" do
     @tweet.save_new
-    tweet_new = @tweet.save_update(@user, {status: "Fajny"} )
+    tweet_new = @tweet.save_update(@user, {status: "Fajny", version: (@tweet.version + 1)} )
     tweet_new_2 = tweet_new.revert(@user, @tweet)
     assert_equal @tweet.status, tweet_new_2.status, "diffrent status"
     assert_equal 3, tweet_new_2.version, "wrong verion"

@@ -53,7 +53,7 @@
       track_activity @tweet_new
       redirect_to [@user, @tweet_new]
 	else
-      flash.now[:error] = "Niedokonano żadnej zmiany"
+      flash.now[:error] = "Niedokonano żadnej zmiany " + params.to_s
       render 'edit'
 	end
   end
