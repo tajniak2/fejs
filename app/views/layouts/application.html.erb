@@ -15,7 +15,7 @@
   <%= link_to "Akceptuj zaproszenia", requests_path %> | 
   <%= link_to "Aktualności", feed_path %> | 
   <%= link_to "Dodaj wpis", new_user_tweet_path(current_user) %> |
-  <%= link_to "Aktywność", activities_path %>
+  <%= link_to "Aktywność", activities_path %> (<%= Activity.how_many?(current_user) %>)
 <% else %>
   <%= link_to "Zarejestruj", signup_path %> |
   <%= link_to "Zaloguj", login_path %>
