@@ -78,4 +78,13 @@ class ActivityTest < ActionDispatch::IntegrationTest
     assert has_content?('wysłał zaproszenie do ' + @user_1.email), "there is no info about sending request after accepting"
     assert has_link?(@user_1.email), "there is no link to invited user"
   end
+  
+  test "new activity should be marked as new and after seeing it it should be marked as read" do
+    log_in
+    click_on 'Dodaj znajomego'
+    visit activities_path
+    assert has_content?('nowe!'), "no info about new activity"
+    visit activities_path
+    assert !has_content?('nowe!'), "info about new activity hasn't disappeared"
+  end
 end
