@@ -1,8 +1,11 @@
 <h1>Wpis użytkownika <%= @tweet.user.email %></h2>
 <p><%= @tweet.status %></p>
 <p>Utworzony: <%= @tweet.created_at %></p>
-<% if correct_user?(@user) %>
-<p><%= link_to "Edytuj", edit_user_tweet_path(@user, @tweet) %> | <%= link_to "Usuń", [@user, @tweet], method: :delete %></p>
+<% if allow?(:tweets, :edtit, current_resource) %>
+<p><%= link_to "Edytuj", edit_user_tweet_path(@user, @tweet) %>
+<% end %>
+<% if allow?(:tweets, :destroy, current_resource) %>
+ | <%= link_to "Usuń", [@user, @tweet], method: :delete %></p>
 <% end %>
 <h2>Poprzednie wersje</h2>
 <% @tweets.each do |tweet| %>
