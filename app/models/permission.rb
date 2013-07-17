@@ -12,7 +12,8 @@
       allow :tweets, [:revert] do |tweet|
         tweet.user_id == user.id
       end
-      # allow_param :tweet, [:name] ?????
+      allow_param :tweet, [:status]
+      allow_param :activity, [:user, :trackable]
       allow :activities, [:index]
       allow :friendships, [:feed, :index]
       allow :friendships, [:create, :destroy]

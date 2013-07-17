@@ -13,7 +13,7 @@
 #
 
 class Tweet < ActiveRecord::Base
-  attr_accessible :status, :version, :current, :tweet_id, :original_updated_at
+  # attr_accessible :status, :version, :current, :tweet_id, :original_updated_at
   
   default_scope order('created_at desc')
   scope :current, -> { where(current: true) }
