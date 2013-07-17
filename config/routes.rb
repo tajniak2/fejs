@@ -12,10 +12,10 @@ Facebook::Application.routes.draw do
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
   
-  match 'feed', to: 'friendships#feed', as: 'feed'
-  match 'requests', to: 'friendships#index', as: 'requests'
+  get 'feed', to: 'friendships#feed', as: 'feed'
+  get 'requests', to: 'friendships#index', as: 'requests'
   
-  match 'users/:user_id/tweets/:tweet_id/revert/:revert_id', to: 'tweets#revert', as: 'tweet_revert'
+  get 'users/:user_id/tweets/:tweet_id/revert/:revert_id', to: 'tweets#revert', as: 'tweet_revert'
   
   #match 'accept/:userB_id', to: 'friendships#accept', as: 'accept'
   
