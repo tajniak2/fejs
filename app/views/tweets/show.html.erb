@@ -1,7 +1,7 @@
 <h1>Wpis użytkownika <%= @tweet.user.email %></h2>
 <p><%= @tweet.status %></p>
 <p>Utworzony: <%= @tweet.created_at %></p>
-<% if allow?(:tweets, :edtit, current_resource) %>
+<% if allow?(:tweets, :edit, current_resource) %>
 <p><%= link_to "Edytuj", edit_user_tweet_path(@user, @tweet) %>
 <% end %>
 <% if allow?(:tweets, :destroy, current_resource) %>

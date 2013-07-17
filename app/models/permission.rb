@@ -9,6 +9,9 @@
       allow :tweets, [:edit, :update, :destroy] do |tweet|
         tweet.user_id == user.id
       end
+      allow :tweets, [:revert] do |tweet|
+        tweet.user_id == user.id
+      end
       # allow_param :tweet, [:name] ?????
       allow :activities, [:index]
       allow :friendships, [:feed, :index]

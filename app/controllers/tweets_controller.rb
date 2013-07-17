@@ -1,5 +1,5 @@
 ﻿class TweetsController < ApplicationController
-  before_filter :correct_user, only: [:destroy, :edit, :update, :rewert] 
+  # before_filter :correct_user, only: [:destroy, :edit, :update, :rewert] 
 
   def index
     @tweets = Tweet.all
@@ -68,10 +68,10 @@
   
   private
   
-    def correct_user
-	  if current_user.id != params[:user_id].to_i
-        redirect_to root_path, alert: "Nie możesz usuwać lub edytować cudzych wpisów"
-	  end
-    end
+    # def correct_user
+	  # if current_user.id != params[:user_id].to_i
+        # redirect_to root_path, alert: "Nie możesz usuwać lub edytować cudzych wpisów"
+	  # end
+    # end
   
 end

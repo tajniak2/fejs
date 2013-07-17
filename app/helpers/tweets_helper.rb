@@ -1,6 +1,6 @@
 module TweetsHelper
   def can_revert?(tweet)
-    correct_user?(@user) && tweet != @tweet
+    allow?(:tweets, :revert, current_resource) && tweet != @tweet
   end
   
   def current_resource
