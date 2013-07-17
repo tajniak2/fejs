@@ -5,6 +5,10 @@ class ActivitiesController < ApplicationController
     @activities = Activity.from_friends(current_user)
   end
   
+  def index_admin
+    @activities = Activity.all
+  end
+  
   private
 
     def update_date

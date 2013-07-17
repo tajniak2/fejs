@@ -16,9 +16,11 @@ class Activity < ActiveRecord::Base
   belongs_to :trackable, polymorphic: true
   attr_accessible :action, :trackable
   
+  default_scope -> { order("created_at desc") }
+  
   def self.from_friends(user)
     friends_ids = Friendship.where(userA_id: user.id, accepted: true).map(&:userB_id)
-    where("user_id IN (?) OR user_id = ?", friends_ids, user.id).order("created_at desc")
+    where("user_id IN (?) OR user_id = ?", friends_ids, user.id)
   end
   
   def self.how_many?(user)

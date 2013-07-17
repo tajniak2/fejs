@@ -16,6 +16,7 @@
   <%= link_to "Aktualności", feed_path %> | 
   <%= link_to "Dodaj wpis", new_user_tweet_path(current_user) %> |
   <%= link_to "Aktywność", activities_path %> (<%= Activity.how_many?(current_user) %>)
+  <% if allow?(:activities, :index_admin) %> | <%= link_to "Aktywność (admin)", activities_admin_path %> <% end %>
 <% else %>
   <%= link_to "Zarejestruj", signup_path %> |
   <%= link_to "Zaloguj", login_path %>

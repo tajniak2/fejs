@@ -1,5 +1,7 @@
 Facebook::Application.routes.draw do
 
+  get 'activities/admin', to: 'activities#index_admin', as: 'activities_admin'
+
   resources :activities
   resources :users do
     resources :tweets
