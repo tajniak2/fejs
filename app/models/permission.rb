@@ -5,9 +5,8 @@
     allow :tweets, [:index, :show]
     if user
       allow :users, [:show]
-      allow :users, [:edit, :update]
       allow :tweets, [:new, :create]
-      allow :tweets, [:edit, :update] do |tweet|
+      allow :tweets, [:edit, :update, :destroy] do |tweet|
         tweet.user_id == user.id
       end
       # allow_param :tweet, [:name] ?????

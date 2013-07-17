@@ -73,8 +73,5 @@
         redirect_to root_path, alert: "Nie możesz usuwać lub edytować cudzych wpisów"
 	  end
     end
-
-    def current_resource
-      @current_resource ||= Tweet.find(params[:id]) if params[:id]
-    end    
+  
 end
