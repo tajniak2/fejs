@@ -1,5 +1,6 @@
 ﻿class TweetsController < ApplicationController
   # before_filter :correct_user, only: [:destroy, :edit, :update, :rewert] 
+  helper_method :current_resource
 
   def index
     @tweets = Tweet.all
@@ -59,14 +60,19 @@
   end
   
   def revert
+    @user = User.find(params[:user_id])
     @tweet = Tweet.find(params[:tweet_id])
     @tweet_old = Tweet.find(params[:revert_id])
-    @tweet_new = @tweet.revert(current_user, @tweet_old)
+    @tweet_new = @tweet.revert(@user, @tweet_old)
     track_activity @tweet_new
-    redirect_to [current_user, @tweet_new]
+    redirect_to [@user, @tweet_new]
   end
   
   private
+  
+  def current_resource
+    @current_resource ||= Tweet.find(params[:id]) if params[:id]
+  end  
   
     # def correct_user
 	  # if current_user.id != params[:user_id].to_i
