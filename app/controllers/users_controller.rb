@@ -32,12 +32,20 @@
   
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(params[:user])
-      flash[:success] = "Zmieniono ustawienia użytkownika"
+    if @user.update_user(params[:user], current_user)
+      flash.now[:success] = "Zmieniono ustawienia użytkownika"
       render 'show'
     else
       flash[:error] = "Coś poszło nie tak"
       render 'edit'
     end
   end
+  
+  private
+  
+  def current_resource
+    @current_resource ||= User.find(params[:id]) if params[:id]
+  end
+  
+  
 end

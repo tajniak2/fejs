@@ -5,6 +5,9 @@
     allow :tweets, [:index, :show]
     if user
       allow :users, [:show]
+      allow :users, [:edit, :update] do |user|
+        user == user
+      end
       allow :tweets, [:new, :create]
       allow :tweets, [:edit, :update, :destroy] do |tweet|
         tweet.user_id == user.id

@@ -12,7 +12,7 @@
 #
 
 class User < ActiveRecord::Base
-  # attr_accessible :email, :password, :password_confirmation
+  attr_accessible :email, :password, :password_confirmation
   has_secure_password
   has_many :tweets
   
@@ -51,4 +51,13 @@ class User < ActiveRecord::Base
     self.seen_feed = Time.now
   end
   
+  def update_user(params, user)
+    if user.admin?
+      return false if params[:admin] == '0' && self == user && User.where(admin: true).count == 1
+      self.admin = params[:admin]
+    end       
+    params_new = params.permit(:email, :password, :password_confrimation)
+    self.update_attributes(params_new)
+    self.save
+  end
 end
