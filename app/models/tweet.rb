@@ -42,12 +42,12 @@ class Tweet < ActiveRecord::Base
   
   def save_update(user, params)
     begin
-      tweet_new = user.tweets.new(params)
+      self.current = false
+      tweet_new = user.tweets.create!(params) if status != params[:status]
       # tweet_new.version = self.version + 1
       # tweet_new.current = true
       # tweet_new.tweet_id = tweet_id
-	  self.current = false
-	  return tweet_new if status != params[:status] && tweet_new.save && self.save
+	  return tweet_new if self.save
       nil
     rescue ActiveRecord::RecordNotUnique
       self.version += 1
@@ -55,6 +55,8 @@ class Tweet < ActiveRecord::Base
       errors.add :base, "Wpis uległ zmianie podczas Twojej edycji."
       tweet_current = Tweet.where(version: version, tweet_id: tweet_id)[0]
       errors.add :base, "Obecna treść wpisu to #{tweet_current.status}"
+      nil
+    rescue ActiveRecord::RecordInvalid
       nil
     end
   end
