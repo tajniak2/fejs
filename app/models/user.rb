@@ -54,9 +54,10 @@ class User < ActiveRecord::Base
   def update_user(params, user)
     if user.admin?
       return false if params[:admin] == '0' && self == user && User.where(admin: true).count == 1
-      self.admin = params[:admin]
-    end       
-    params_new = params.permit(:email, :password, :password_confrimation)
+      params_new = params.permit(:email, :password, :password_confrimation, :admin)
+    else
+      params_new = params.permit(:email, :password, :password_confrimation)
+    end
     self.update_attributes(params_new)
     self.save
   end

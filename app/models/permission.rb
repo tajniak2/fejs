@@ -9,17 +9,13 @@
         user == u
       end
       allow :tweets, [:new, :create]
-      allow :tweets, [:edit, :update, :destroy] do |tweet|
+      allow :tweets, [:edit, :update, :destroy, :revert] do |tweet|
         tweet.user_id == user.id
       end
-      allow :tweets, [:revert] do |tweet|
-        tweet.user_id == user.id
-      end
-      allow_param :tweet, [:status]
-      allow_param :activity, [:user, :trackable]
+      #allow_param :tweet, [:status]
+      #allow_param :activity, [:user, :trackable]
       allow :activities, [:index]
-      allow :friendships, [:feed, :index]
-      allow :friendships, [:create, :destroy]
+      allow :friendships, [:feed, :index, :create, :destroy]
       allow_all if user.admin?
     end
   end

@@ -43,15 +43,12 @@ class Tweet < ActiveRecord::Base
   def save_update(user, params)
     begin
       tweet_new = user.tweets.new(params)
-      tweet_new.version = params[:version] #self.version + 1
-      tweet_new.current = true
-      tweet_new.tweet_id = tweet_id
+      # tweet_new.version = self.version + 1
+      # tweet_new.current = true
+      # tweet_new.tweet_id = tweet_id
 	  self.current = false
-	  if status != params[:status] && tweet_new.save && self.save
-        tweet_new
-      else
-        nil
-      end
+	  return tweet_new if status != params[:status] && tweet_new.save && self.save
+      nil
     rescue ActiveRecord::RecordNotUnique
       self.version += 1
       self.status = params[:status]
@@ -68,11 +65,7 @@ class Tweet < ActiveRecord::Base
   end
   
   def revert(user, tweet_old)
-    tweet = user.tweets.new
-    tweet.status = tweet_old.status
-    tweet.version = version + 1
-    tweet.current = true
-    tweet.tweet_id = tweet_id
+    tweet = user.tweets.new({status: tweet_old.status, version: self.version + 1, current: true, tweet_id: tweet_id})
     self.current = false
 	if tweet.save && self.save
       tweet

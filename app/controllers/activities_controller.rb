@@ -2,11 +2,11 @@ class ActivitiesController < ApplicationController
   after_filter :update_date
   
   def index
-    @activities = Activity.from_friends(current_user)
+    @activities = Activity.from_friends(current_user).includes(:user, :trackable)
   end
   
   def index_admin
-    @activities = Activity.all
+    @activities = Activity.all.includes(:user, :trackable)
   end
   
   private

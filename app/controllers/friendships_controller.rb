@@ -21,7 +21,7 @@
   end
 
   def feed
-    @tweets = Tweet.from_friends(current_user)
+    @tweets = Tweet.from_friends(current_user).includes(:user)
   end
   
   def index
