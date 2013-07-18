@@ -15,7 +15,7 @@
 class Tweet < ActiveRecord::Base
   attr_accessible :status, :version, :current, :tweet_id
   
-  default_scope order('created_at desc')
+  default_scope -> { order('created_at desc') }
   scope :current, -> { where(current: true) }
   
   belongs_to :user
@@ -25,7 +25,7 @@ class Tweet < ActiveRecord::Base
   # validates :current, presence: true - pod dodaniu tego wszystko się sypie :P
    
   def self.from_friends(user)
-    friends_ids = Friendship.find_all_by_userA_id_and_accepted(user.id, true).map(&:userB_id)
+    friends_ids = Friendship.where(userA_id: user.id, accepted: true).map(&:userB_id)
     where("user_id IN (?) OR user_id = ?", friends_ids, user.id)
   end
   
@@ -41,23 +41,25 @@ class Tweet < ActiveRecord::Base
   end
   
   def save_update(user, params)
-    tweet_new = user.tweets.new(params)
-    tweet_new.version = params[:version] #self.version + 1
-    tweet_new.current = true
-    tweet_new.tweet_id = tweet_id
-	self.current = false
-	if status != params[:status] && tweet_new.save && self.save
-      tweet_new
-    else
+    begin
+      tweet_new = user.tweets.new(params)
+      tweet_new.version = params[:version] #self.version + 1
+      tweet_new.current = true
+      tweet_new.tweet_id = tweet_id
+	  self.current = false
+	  if status != params[:status] && tweet_new.save && self.save
+        tweet_new
+      else
+        nil
+      end
+    rescue ActiveRecord::RecordNotUnique
+      self.version += 1
+      self.status = params[:status]
+      errors.add :base, "Wpis uległ zmianie podczas Twojej edycji."
+      tweet_current = Tweet.where(version: version, tweet_id: tweet_id)[0]
+      errors.add :base, "Obecna treść wpisu to #{tweet_current.status}"
       nil
     end
-  rescue ActiveRecord::RecordNotUnique
-    self.version += 1
-    self.status = params[:status]
-    errors.add :base, "Wpis uległ zmianie podczas Twojej edycji."
-    tweet_current = Tweet.where(version: version, tweet_id: tweet_id)[0]
-    errors.add :base, "Obecna treść wpisu to #{tweet_current.status}"
-    nil
   end
   
   def hide

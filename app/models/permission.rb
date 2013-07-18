@@ -5,8 +5,8 @@
     allow :tweets, [:index, :show]
     if user
       allow :users, [:show]
-      allow :users, [:edit, :update] do |user|
-        user == user
+      allow :users, [:edit, :update] do |u|
+        user == u
       end
       allow :tweets, [:new, :create]
       allow :tweets, [:edit, :update, :destroy] do |tweet|

@@ -3,4 +3,4 @@
   | <%= link_to "Akceptuj zaproszenie", friendships_path(friend_id: user), method: :post %>
 <% elsif can_be_added?(user) %>
   | <%= link_to "Dodaj znajomego", friendships_path(friend_id: user), method: :post %>
-<% end %> <% if current_user.admin? || user == current_user %> | <%= link_to "Edytuj", edit_user_path(user) %> <% end %></p>
+<% end %> <% if allow?(:users, :edit, user) %> | <%= link_to "Edytuj", edit_user_path(user) %> <% end %></p>
