@@ -71,7 +71,11 @@
   private
   
   def current_resource
-    @current_resource ||= Tweet.find(params[:id]) if params[:id]
+    if params[:id]
+      @current_resource ||= Tweet.find(params[:id]) 
+    elsif params[:tweet_id]
+      @current_resource ||= Tweet.find(params[:tweet_id])
+    end
   end  
   
     # def correct_user
